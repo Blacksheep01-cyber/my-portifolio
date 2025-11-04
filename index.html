@@ -341,7 +341,70 @@
       opacity: 0.03;
       pointer-events: none;
     }
-    
+
+    /* Page loader */
+    .loader {
+      position: fixed;
+      inset: 0;
+      background: #0b0f12;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.5s, visibility 0.5s;
+    }
+
+    .loader.fade-out {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .loader-content {
+      width: 40px;
+      height: 40px;
+      border: 3px solid #2563EB;
+      border-top-color: #FACC15;
+      border-radius: 50%;
+      animation: loader-spin 0.8s linear infinite;
+    }
+
+    @keyframes loader-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Enhanced card hover effects */
+    .project-card {
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(145deg, #1a1f24, #0d1114);
+      box-shadow: 8px 8px 16px #090c0e,
+                 -8px -8px 16px #131a1e;
+    }
+
+    .project-card:hover {
+      transform: translateY(-12px) rotateX(10deg);
+      box-shadow: 0 20px 40px rgba(250,204,21,0.15);
+    }
+
+    /* Animated skill bars */
+    .skill-bar {
+      height: 4px;
+      background: #2d3748;
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, #FACC15, #2563EB);
+      transform-origin: left;
+      animation: skillProgress 1.5s ease-out forwards;
+    }
+
+    @keyframes skillProgress {
+      from { transform: scaleX(0); }
+      to { transform: scaleX(var(--progress)); }
+    }
+
     @media (max-width: 768px) {
       .footer-grid {
         grid-template-columns: 1fr;
@@ -363,6 +426,38 @@
         width: 45px;
         height: 45px;
       }
+    }
+
+    /* Glass morphism cards */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 20px;
+    }
+
+    /* Gradient text animations */
+    .gradient-text {
+      background: linear-gradient(90deg, #FACC15, #2563EB, #9333EA);
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradient 3s linear infinite;
+    }
+
+    @keyframes gradient {
+      to { background-position: 200% center; }
+    }
+
+    /* Floating elements */
+    .float-element {
+      animation: floating 3s ease-in-out infinite;
+    }
+
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
     }
   </style>
 </head>
@@ -454,7 +549,7 @@
       <div class="max-w-6xl mx-auto text-center px-6">
         <h3 class="text-3xl font-bold text-accent mb-14">Featured Projects</h3>
         <div class="grid md:grid-cols-3 gap-10">
-          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt">
+          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt project-card">
             <div class="text-accent mb-3 animate-glow" data-lucide="cloud" style="width:48px; height:48px;"></div>
             <h4 class="text-lg font-semibold text-accent mb-2">Automated ETL System</h4>
             <p class="text-gray-400 text-sm mb-4">End-to-end Airflow pipeline integrating data from APIs into AWS Redshift.</p>
@@ -464,7 +559,7 @@
               <span class="bg-gray-800 px-2 py-1 rounded text-xs text-gray-300">Python</span>
             </div>
           </div>
-          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt">
+          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt project-card">
             <div class="text-accent mb-3 animate-glow" data-lucide="layout-dashboard" style="width:48px; height:48px;"></div>
             <h4 class="text-lg font-semibold text-accent mb-2">Insight Dashboard</h4>
             <p class="text-gray-400 text-sm mb-4">Dynamic BI dashboard combining analytics and responsive visual design.</p>
@@ -474,7 +569,7 @@
               <span class="bg-gray-800 px-2 py-1 rounded text-xs text-gray-300">JavaScript</span>
             </div>
           </div>
-          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt">
+          <div class="rounded-3xl bg-gray-900 overflow-hidden transition-all hover:scale-105 hover:shadow-accent/30 p-6 text-left animate-fadeUp tilt project-card">
             <div class="text-accent mb-3 animate-glow" data-lucide="smartphone-charging" style="width:48px; height:48px;"></div>
             <h4 class="text-lg font-semibold text-accent mb-2">DataViz Mobile App</h4>
             <p class="text-gray-400 text-sm mb-4">Flutter app visualizing metrics with real-time data streaming.</p>
@@ -644,6 +739,59 @@
         behavior: 'smooth'
       });
     });
+
+    // Page loader
+    const loader = document.querySelector('.loader');
+    window.addEventListener('load', () => {
+      loader.classList.add('fade-out');
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 500);
+    });
+
+    // Loading animation
+    window.addEventListener('load', () => {
+      const loader = document.querySelector('.loader');
+      setTimeout(() => {
+        loader.classList.add('fade-out');
+      }, 800);
+    });
+
+    // Smooth scroll reveal animation
+    const revealElements = document.querySelectorAll('[data-reveal]');
+
+    const scrollReveal = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('revealed');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    revealElements.forEach(el => scrollReveal.observe(el));
+
+    // Ensure page always starts at the top on refresh/navigation
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    window.scrollTo(0, 0);
+
+    // Some browsers keep scroll position on beforeunload; reset it
+    window.addEventListener('beforeunload', () => {
+      window.scrollTo(0, 0);
+    });
+
+    // Also ensure after load we are at top (safe fallback)
+    window.addEventListener('load', () => {
+      setTimeout(() => window.scrollTo({ top: 0, left: 0, behavior: 'auto' }), 0);
+    });
   </script>
+
+  <!-- Page loader HTML (hidden by default) -->
+  <div class="loader">
+    <div class="loader-content"></div>
+  </div>
 </body>
 </html>
