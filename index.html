@@ -459,6 +459,25 @@
       50% { transform: translateY(-10px); }
       100% { transform: translateY(0px); }
     }
+
+    /* Typewriter animation for the main name */
+    .typewriter {
+      display: inline-block;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: .12em solid #FACC15; /* cursor */
+      width: 0ch;
+      animation: typing 2.6s steps(20, end) 0.6s forwards, blink 0.7s step-end infinite;
+      font-weight: 800;
+    }
+
+    @keyframes typing {
+      to { width: 20ch; } /* adjust ch count if you change the text */
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
   </style>
 </head>
 <body class="bg-darkbg text-gray-100 font-sans overflow-x-hidden relative min-h-screen flex flex-col">
@@ -493,7 +512,9 @@
       <div class="absolute inset-0 bg-[linear-gradient(270deg,#2563EB,#FACC15,#9333EA)] bg-[length:400%_400%] animate-gradient blur-3xl opacity-20"></div>
       <div class="relative z-10 animate-fadeUp">
         <div class="mx-auto mb-6 text-accent animate-float" data-lucide="code-2" style="width:80px; height:80px;"></div>
-        <h2 class="text-5xl md:text-7xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-accent via-brand to-purple-600 animate-gradient bg-[length:200%_200%]">Jonathan K Mlambo</h2>
+        <h2 class="text-5xl md:text-7xl font-extrabold mb-4">
+          <span class="gradient-text typewriter">Jonathan K Mlambo</span>
+        </h2>
         <p class="text-lg md:text-xl max-w-2xl mx-auto text-gray-300 animate-fadeUp">Data Engineer • Software Engineer • Mobile Developer • Database Administrator</p>
         <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center animate-fadeUp">
           <a href="#projects" class="bg-accent text-darkbg px-8 py-3 rounded-xl font-semibold hover:bg-yellow-400 hover:shadow-[0_0_20px_#FACC15] transition-all transform hover:scale-110">View Work</a>
