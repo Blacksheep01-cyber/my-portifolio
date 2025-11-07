@@ -504,24 +504,27 @@
 
     /* Add these styles to your existing <style> section */
    /* Remove or comment out the previous .animated-name styles and add these new ones */
-/* ✨ Fixed & smoothed animated name effect ✨ */
 .animated-name {
   font-size: clamp(2.5rem, 5vw, 5rem);
   position: relative;
   display: inline-block;
   color: transparent;
-  background: linear-gradient(90deg, #6d28d9, #2563eb, #ec4899, #8b5cf6);
+  background: linear-gradient(
+    90deg,
+    #6d28d9,
+    #2563EB,
+    #EC4899,
+    #8B5CF6
+  );
   background-size: 300% auto;
   -webkit-background-clip: text;
   background-clip: text;
   opacity: 0;
   animation: 
-    nameReveal 0.8s ease forwards,
-    gradientMove 8s linear infinite 0.8s;
-  overflow: hidden;
+    nameReveal 1s ease forwards,
+    gradientMove 8s linear infinite 1s;
 }
 
-/* The overlay “typewriter” bar */
 .animated-name::before {
   content: '';
   position: absolute;
@@ -529,18 +532,15 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: #0b0f12; /* background color behind text */
+  background: #0b0f12;
   transform-origin: left;
-  animation: 
-    typewriterReveal 2.5s steps(30, end) forwards 0.2s;
-  z-index: 2;
+  animation: typewriterReveal 2.5s steps(30, end) forwards;
 }
 
-/* Subtle fade & slide-up for the text */
 @keyframes nameReveal {
   0% {
     opacity: 0;
-    transform: translateY(15px);
+    transform: translateY(20px);
   }
   100% {
     opacity: 1;
@@ -548,26 +548,14 @@
   }
 }
 
-/* Typewriter-style reveal bar */
 @keyframes typewriterReveal {
-  from {
-    transform: scaleX(1);
-  }
-  to {
-    transform: scaleX(0);
-  }
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
 }
 
-/* Animated moving gradient */
 @keyframes gradientMove {
-  0% {
-    background-position: 0% center;
-  }
-  100% {
-    background-position: 300% center;
-  }
+   to  { background-position: 300% center; }
 }
-
 
     /* Parallax section styles */
 .parallax-section {
